@@ -1,0 +1,18 @@
+int longestIncreasingSubsequence(vector<int> arr) {
+int v[arr.size()];
+v[0]=1;
+int length=1;
+for(int i=1;i<arr.size();i++)
+{
+    v[i]=1;
+    for(int j=0;j<i;j++)
+    {
+        if( arr[j]<arr[i] && v[i]<=v[j] )    
+        {
+            v[i]=v[j]+1;
+        }
+    }
+    length=max(length,v[i]);
+}
+   return length;
+}

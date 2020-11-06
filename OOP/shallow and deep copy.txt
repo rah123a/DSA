@@ -1,0 +1,49 @@
+
+
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+class student{
+	public:
+		int roll;
+		public:
+		char* name;
+		student(int age,char* name){
+			this->roll=age;
+			/*..........shallow copy
+			this->name=name;
+			*/
+			//............deep copy.............
+			this->name=new char[strlen(name)+1];
+			strcpy(this->name,name);
+		}
+		//.........copy constructor................
+		student(const student& s){                        //   const is used so that there will b=not be any illegeal changes to s. 
+			this->roll=s.roll;
+			this->name=new char[strlen(s.name)+1];        //...deep copy.............
+			strcpy(this->name,s.name);
+		}
+		void print();
+	
+} ;
+void student::print(){
+	cout<<"student name and roll is "<<name<<" "<<roll<<endl;
+	
+}
+
+
+int main(){
+	ios::sync_with_stdio(false);
+	 	
+	char name[]="abcde";
+	student s1(100,name);
+	
+	student s2(s1);
+	s2.name[0]='A';
+	
+	
+	s1.print();
+	s2.print();
+	
+}

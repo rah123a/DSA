@@ -1,0 +1,41 @@
+
+void heapify(int arr[], int n, int i)  {
+      
+      int node=i;
+      int l=2*i+1;
+      int r=2*i+2;
+      
+      if(l<n&&arr[l]>arr[node])
+      {
+          node=l;
+      }
+      if(r<n&&arr[r]>arr[node])
+      {
+          node=r;
+      }
+      if(node!=i)
+      {
+          swap(arr[node],arr[i]);
+          heapify(arr,n,node);
+      }
+      
+}
+
+// Rearranges input array so that it becomes a max heap
+void buildHeap(int arr[], int n)  { 
+    // Your Code Here
+     int startIdx = (n / 2) - 1; 
+ 
+    for (int i = startIdx; i >= 0; i--) { 
+        heapify(arr, n, i); 
+    } 
+}
+void heapsort(int arr[],int n)
+{
+  builheap(arr,n);
+  for(int i=n-1;i>=0;i--)
+ {
+    swap(arr[i],arr[0]);
+    heapify(arr,i,0);
+ }
+}

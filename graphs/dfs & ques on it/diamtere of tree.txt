@@ -1,0 +1,45 @@
+#includeiostream
+#includemap
+#includevector
+#includecmath
+#includecstring
+#includeclimits
+#includealgorithm
+#define ll long long int
+using namespace std;
+vectorint adj[10001];
+int visited[10001];
+int maxd,maxnode;
+void dfs(int v,int d){
+	visited[v]=1;
+	if(d>maxd){
+		maxd=d;
+		maxnode=v;
+	}
+	for(int i=0;iadj[v].size();i++){
+		if(visited[adj[v][i]]==0){
+			dfs(adj[v][i],(d+1));
+		}
+	}
+	
+}
+int main(){
+	
+	int n,e,x,y;
+	cinn;
+	e=(n-1);
+	for(int i=1;i=e;i++){
+		cinxy;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	
+	maxd=-1;
+	dfs(1,0);
+	maxd=-1;
+	for(int i=1;i=n;i++){
+		visited[i]=0;
+	}
+	dfs(maxnode,0);
+	coutmaxdendl;
+}

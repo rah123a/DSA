@@ -1,0 +1,65 @@
+#include<iostream>
+#include<map>
+#include<vector>
+#include<cmath>
+#include<cstring>
+#include<climits>
+#include<algorithm>
+#define ll long long int
+using namespace std;
+vector<int> adj[20001];
+int visited[20001];
+int col[20001];
+bool dfs(int v,int c){
+	visited[v]=1;
+	col[v]=c;
+	for(int child=0;child<adj[v].size();child++){
+		if(visited[adj[v][child]]==0){
+			bool res=dfs(adj[v][child],c^1);
+			if(res==false){
+				return false;
+			}
+		}
+		else{
+			if(col[adj[v][child]]==col[v]){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+int main(){
+	int t;
+	cin>>t;
+	for(int tt=1;tt<=t;tt++){
+		
+	int n,e,x,y;
+	cin>>n>>e;
+	for(int i=1;i<=n;i++){
+		visited[i]=0;
+		adj[i].clear();
+	}
+	for(int i=1;i<=e;i++){
+		cin>>x>>y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	bool flag=true;
+	for(int i=1;i<=n;i++){
+		if(visited[i]==0){
+			bool res=dfs(i,1);
+			if(res==false){
+				flag=false;
+			}
+		}
+	}
+
+	if(flag){
+		cout<<"bipartitie"<<endl;
+	}
+	else{
+		cout<<"not bipartite"<<endl;
+	}
+	
+}
+}

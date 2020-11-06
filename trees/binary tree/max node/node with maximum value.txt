@@ -1,0 +1,21 @@
+#include<climits>
+TreeNode<int>* maxDataNode(TreeNode<int>* root) {
+    if(root==NULL)
+    {
+        return NULL;
+    }
+    TreeNode<int>* node=root;
+    TreeNode<int>* n1;
+    for(int i=0;i<root->children.size();i++)
+    {
+          n1 = maxDataNode(root->children[i]); 
+        if(n1->data>node->data)
+     {
+         node=n1;
+     }
+    }
+    return node;
+    
+
+}
+

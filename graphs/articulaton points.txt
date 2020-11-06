@@ -1,0 +1,69 @@
+#include<iostream>
+#include<map>
+#include<vector>
+#include<cmath>
+#include<cstring>
+#include<climits>
+#include<queue>
+#include<algorithm>
+#include<set>
+#define ll long long int
+#define endl '\n'
+using namespace std;
+vector<int>adj[10001];
+int in[10001],low[10001],visited[10001];
+set<int>AP;
+int timer;
+void dfs(int v,int par){
+	visited[v]=1;
+	in[v]=low[v]=timer++;
+	int child_cnt=0;
+	for(int i=0;i<adj[v].size();i++){
+		if(adj[v][i]==par){
+			continue;
+		}
+		if(visited[adj[v][i]]==1){
+			low[v]=min(in[adj[v][i]],low[v]);
+		}
+		else{
+			dfs(adj[v][i],v);
+			child_cnt++;
+			low[v]=min(low[v],low[adj[v][i]]);
+			if(in[v]<=low[adj[v][i]] && par!=-1){
+				AP.insert(v);
+			}
+		}
+	}
+	if(par==-1 && child_cnt>1){
+		AP.insert(v);
+	}
+}
+int main() {
+	ios::sync_with_stdio(0);
+cin.tie(0);
+	
+	
+while(1){
+	int n,m,a,b;
+		cin>>n>>m;
+		if(n==0 && m==0){
+			break;
+		}
+		for(int i=1;i<=n;i++){
+			visited[i]=0;
+			adj[i].clear();		}
+		AP.clear();
+		timer=1;
+		for(int i=1;i<=m;i++){
+			cin>>a>>b;
+			adj[a].push_back(b);
+			adj[b].push_back(a);
+		}
+		for(int i=1;i<=n;i++){
+			if(visited[i]==0){
+				dfs(i,-1);
+			}
+		}
+		cout<<AP.size()<<endl;
+}
+}

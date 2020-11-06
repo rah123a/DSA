@@ -1,0 +1,58 @@
+#include<iostream>
+#include<map>
+#include<vector>
+#include<cmath>
+#include<cstring>
+#include<climits>
+#include<queue>
+#include<algorithm>
+#define ll long long int
+using namespace std;
+vector<int> adj[100001];
+bool visited[100001]={0};
+int dist[100001];
+//.................................breadth first search............................................
+void bfs(int v){
+	visited[v]=1;
+	dist[v]=0;
+	queue<int> q;
+	q.push(v);
+	while(!q.empty()){
+		int cur=q.front();
+		q.pop();
+		for(int i=0;i<adj[cur].size();i++){
+			if(visited[adj[cur][i]]==0)
+			{
+			q.push(adj[cur][i]);
+			dist[adj[cur][i]]=dist[cur]+1;
+			visited[adj[cur][i]]=1;
+		    }
+		}	
+	}
+}
+
+int main(){
+	
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	int n,e,x,y;
+	cin>>n>>e;
+	
+	for(int i=0;i<=e;i++){
+		visited[i]=0;
+		adj[i].clear();
+		dist[i]=0;
+	}
+	for(int i=1;i<=e;i++){
+		cin>>x>>y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	bfs(1);
+	cout<<dist[n]<<endl;
+
+   }
+}
+

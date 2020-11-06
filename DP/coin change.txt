@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size(),m=amount;
+        
+        int dp[m+1];
+        dp[0]=0;
+        int inf=INT_MAX;
+        
+        for(int i=1;i<=m;i++){
+         dp[i]=inf;
+        }
+        //.......................................................
+        for(int i=1;i<=m;i++){
+            
+            int ans=inf;
+            for(int j=0;j<n;j++){
+                if(coins[j]<=i){o0i
+                    ans=min(ans,dp[i-coins[j]]);
+                }
+            }
+            if(ans==inf){
+                dp[i]=inf;
+            }
+            else{
+                dp[i]=ans+1;
+            }
+        }
+        //.................................................................
+        if(dp[m]==inf) return -1;
+        
+        return dp[m];
+    }
+};
